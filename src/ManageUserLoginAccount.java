@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class ManageUserLoginAccount {
 
@@ -14,4 +17,14 @@ public class ManageUserLoginAccount {
         Main.exitAndBackOptions();
     }
 
+    public static Account getUserLoginAccount(){
+        Account account = null;
+        try {
+            Scanner scanner = new Scanner(new File("resources/LoginAccount.txt"));
+            account = new Account();
+            account.setUsername(scanner.nextLine());
+            account.setPassword(scanner.nextLine());
+        } catch (FileNotFoundException e) { }
+        return account;
+    }
 }
