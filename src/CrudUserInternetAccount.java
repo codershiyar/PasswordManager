@@ -6,12 +6,9 @@ public class CrudUserInternetAccount {
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("Account ID: " +account.getID()+ " | Username: " +account.getUsername()+ " | Password: " +account.getPassword()+ " | Domain: " +account.getDomain());
             }}else{
-            System.out.println("---------------------------------------------------------------------------------");
-            System.out.println("No saved data found");
-            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("-----No saved data found-----");
         } if(withBackOption){  Main.exitAndBackOptions();  }
     }
-
     public static boolean create(InternetAccount account ,boolean loginStatus){
         if(account != null && loginStatus){
            User.internetAccounts.add(account);
@@ -37,9 +34,6 @@ public class CrudUserInternetAccount {
     }
     public static boolean isValidAccountID(String accountID){
         for (Account account :  User.internetAccounts) {
-            if (String.valueOf(account.getID()).equals(accountID) && Login.status) {
-                return true;
-            }
-        } return false;
+            if (String.valueOf(account.getID()).equals(accountID) && Login.status) { return true; } } return false;
     }
 }
