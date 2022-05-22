@@ -29,22 +29,22 @@ public class Main extends App{
             if(gekozenOptie.equals("1")||gekozenOptie.equals("2")||gekozenOptie.equals("3")||gekozenOptie.equals("4")||gekozenOptie.equals("5")
                     || gekozenOptie.equals("6") || gekozenOptie.equals("7")||  gekozenOptie.equals("0") ){
                 switch (gekozenOptie) {
-                    case "1" :{User.viewAccounts(true); }
+                    case "1" :{CrudUserInternetAccount.viewAccounts(true); }
                     case "2" :{
-                        User.viewAccounts(false);
+                        CrudUserInternetAccount.viewAccounts(false);
                         System.out.print("Enter the account ID: ");
                         String accountID = Main.scanner.nextLine();
-                        boolean isValidAccountID = User.isValidAccountID(accountID);
+                        boolean isValidAccountID = CrudUserInternetAccount.isValidAccountID(accountID);
                         while (!isValidAccountID){
-                            if (!User.isValidAccountID(accountID)) {
+                            if (!CrudUserInternetAccount.isValidAccountID(accountID)) {
                                 System.out.print("Invalid account ID please try again.\n" + "Your new choice:");
                                 accountID = Main.scanner.nextLine();
-                                isValidAccountID = User.isValidAccountID(accountID);
+                                isValidAccountID = CrudUserInternetAccount.isValidAccountID(accountID);
                             }
                         }
-                        if(User.removeAnAccount(Integer.parseInt(accountID),User.loginStatus)){
+                        if(CrudUserInternetAccount.remove(Integer.parseInt(accountID),Login.status)){
                             System.out.println("The chosen account has been deleted");
-                            User.viewAccounts(false);
+                            CrudUserInternetAccount.viewAccounts(false);
                         }
                         Main.exitAndBackOptions();
                     }
@@ -57,24 +57,58 @@ public class Main extends App{
                         System.out.println("Enter domain:");
                         internetAccount.setDomain(Main.scanner.nextLine());
 
-                        if(User.addInternetAccount(internetAccount, User.loginStatus)){
+                        if(CrudUserInternetAccount.create(internetAccount, Login.status)){
                             System.out.println("-------------------------------------");
                             System.out.println("The data has been saved successfully");
                             System.out.println("-------------------------------------");
-                            User.viewAccounts(false);
+                            CrudUserInternetAccount.viewAccounts(false);
                         }else{
                             System.out.println("Failed to save data, please try again");
                         }
                         Main.exitAndBackOptions();
                     }
-                    case "4" :{ User.updateAnAccount(); }
+                    case "4" :{
+                        CrudUserInternetAccount.viewAccounts(false);
+                        System.out.println("Enter the ID of account you want to edit: ");
+                        String accountID = Main.scanner.nextLine();
+                        boolean isValidId = false;
+                        int positieWachtwoord = 0;
+                        while (!isValidId) {
+                            for (Account account : User.internetAccounts) {
+                                positieWachtwoord +=1;
+                                if (String.valueOf(account.getID()).equals(accountID)) {
+                                    System.out.println(String.format("Selected item: Username: %s| Password: %s", account.getUsername(), account.getPassword()));
+                                    isValidId = true;
+                                    break;
+                                }
+                            }
+                            if (!isValidId) {
+                                System.out.print("Invalid account ID please try again.\n" +
+                                        "Your new choice: ");
+                                accountID = Main.scanner.nextLine();
+                            }
+                        }
+                        InternetAccount account = new InternetAccount(false);
+                        System.out.println("Enter the new username and click enter:");
+                        account.setUsername(Main.scanner.nextLine());
+
+                        System.out.println("Enter the new password and click enter:");
+                        account.setPassword(Main.scanner.nextLine());
+
+                        System.out.println("Enter the new domain click enter: ");
+                        account.setDomain(Main.scanner.nextLine());
+                        account.setID(Integer.parseInt(accountID));
+
+                        CrudUserInternetAccount.update(account,positieWachtwoord);
+
+                    }
                     case "5":{
                         Account account = new Account();
                         System.out.println("Enter the new username:");
                         account.setUsername( scanner.nextLine());
                         System.out.println("Enter the new password: ");
                         account.setPassword( scanner.nextLine());
-                        App.user.updateLoginAccount(account);
+                        ManageUserLoginAccount.updateLoginAccount(account);
                     };
                     case "0" :{ System.out.println("You have logged out");}
                 }

@@ -2,7 +2,11 @@ public class Account {
     private String username;
     private String password;
     private int ID;
-
+    public Account(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+    public Account(){ }
     public int getID() { return ID; }
     public void setID(int ID) { this.ID = ID; }
 
