@@ -1,11 +1,14 @@
 import java.util.Random;
 
-public class Login {
+import static java.lang.System.exit;
+
+public class Login implements IObserver {
+
     public static boolean status = false;
     public static int answerRobotValidation;
     public static Account enteredAccount;
 
-    public static void loginForm(){
+    public static void showLoginForm(){
         enteredAccount = new InternetAccount(false);
         System.out.println("Enter your username: ");
         enteredAccount.setUsername(Main.scanner.nextLine());
@@ -20,25 +23,46 @@ public class Login {
     }
 
     public static void startLoginProcess(){
-        loginForm();
+        Login login = new Login();
+        User user = App.user;
+//        user.setChanged();
+        user.addObserver(login);
+//        login.update(user);
+        showLoginForm();
         Boolean isNotARobot = Main.scanner.nextLine().equals(Integer.toString(answerRobotValidation));
         boolean loginStatus = false;
         while (!loginStatus){
-            if(Login.validation(enteredAccount, isNotARobot)){
+            if(Login.check(enteredAccount, isNotARobot) && user.canLogin){
                 loginStatus = true;
                 System.out.println("----- You have successfully logged in -----");
             }else{
-                System.out.println("----- Wrong data has been entered, please try again:  ");
-                loginForm();
+                System.out.println("Wrong data has been entered");
+                user.setChanged();
+                showLoginForm();
                 isNotARobot = Main.scanner.nextLine().equals(Integer.toString(answerRobotValidation));
             }
-        }  if (loginStatus){ Main.menuOptions(); }
+        }
+        if(status){ Main.menuOptions(); }
     }
-    public static boolean validation(Account enteredAccount, boolean isNotARobot){
+
+    public static boolean check(Account enteredAccount, boolean isNotARobot){
         if(User.loginAccount.getUsername().equals(enteredAccount.getUsername())
-             && User.loginAccount.getPassword().equals(enteredAccount.getPassword()) && isNotARobot
+                && User.loginAccount.getPassword().equals(enteredAccount.getPassword()) && isNotARobot
         ){ Login.status = true; return true;}
         return false;
     }
+
     public static void  setLoginAccount(Account loginAccount){  User.loginAccount = loginAccount; }
+
+    @Override
+    public boolean update(Observable object) {
+        boolean canLogin =((User) object).canLogin;
+        int totalLoginAttempt= ((User) object).totalLoginAttempt;
+        if (totalLoginAttempt<3 && canLogin) {
+            System.out.println ("Total Attempts: "+ totalLoginAttempt + " You can try to login again");
+        }else{
+            System.out.println ("You have entered more than 3 times wrong details. Your account has been banned");exit(1);
+        }
+        return canLogin;
+    }
 }

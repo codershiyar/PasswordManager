@@ -1,23 +1,20 @@
-import java.io.IOException;
-import java.util.Random;
+public class App extends AppTemplate {
 
-public class App {
+    static User user = new User("Shiyar");
 
-    static AppInfo appInfo = initialiseerAppInfo();
-
-    public static void startApp(){
-        // Aanroepen van de method die zorgt voor het inloggen in de app
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Log in to view the app content ");
-        System.out.println("-----------------------------------------------------------");
-        Login.startLoginProcess();
-    };
-
-    public static AppInfo initialiseerAppInfo(){
-        AppInfo appInfo = new AppInfo();
-        appInfo.setName("Password Manager");
-        appInfo.setVersion(1.0);
-        return appInfo;
+    @Override
+    public void initialiseerAppName(String name) {
+        System.out.println("--------------------------------------------");
+        System.out.println("The app name is setup");
+        System.out.println("AppName is: " + name);
     }
+
+    @Override
+    public void initialiseerAppVersion(double version) {
+        System.out.println("--------------------------------------------");
+        System.out.println("The app version is setup");
+        System.out.println("AppVersion is: " + version);
+    }
+
 
 }

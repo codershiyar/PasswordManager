@@ -9,6 +9,7 @@ public class CrudUserInternetAccount {
             System.out.println("-----No saved data found-----");
         } if(withBackOption){  Main.exitAndBackOptions();  }
     }
+
     public static boolean create(InternetAccount account ,boolean loginStatus){
         if(account != null && loginStatus){
            User.internetAccounts.add(account);
@@ -16,6 +17,7 @@ public class CrudUserInternetAccount {
             return true;
         } return false;
     }
+
     public static boolean remove(int accountID, boolean loginStatus) {
         for (Account account :  User.internetAccounts) {
             if (account.getID()== accountID && loginStatus) {
@@ -25,6 +27,7 @@ public class CrudUserInternetAccount {
             }
         } return false;
     }
+
     public static void update(InternetAccount account,int position){
         User.internetAccounts.set(position-1,account);
         viewAccounts(false);
@@ -32,6 +35,7 @@ public class CrudUserInternetAccount {
         System.out.println("You have changed the selected account!");
         Main.exitAndBackOptions();
     }
+
     public static boolean isValidAccountID(String accountID){
         for (Account account :  User.internetAccounts) {
             if (String.valueOf(account.getID()).equals(accountID) && Login.status) { return true; } } return false;

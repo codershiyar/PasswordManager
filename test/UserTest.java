@@ -11,7 +11,7 @@ public class UserTest {
     // gegevens zijn correct dan wordt user ingelogd in de app via de inloggen method.
     @Test
     public void testCheckLoginAccount() {
-        User user = new User();
+
         Account account = new Account();
         account.setUsername("User"); account.setPassword("1234"); Login.setLoginAccount(account);
 
@@ -22,10 +22,10 @@ public class UserTest {
 
         // Ik ga vanuit dat de vraag om te controleren dat gebruiker geen robot is, is : 10 + 12
         // En de antwoord op de vraag is de getal die achter == komt
-        assertTrue(Login.validation(testAccount1,(10 + 12) == 22));
-        assertFalse(Login.validation(testAccount2,(10 + 12) == 22));
-        assertFalse(Login.validation(testAccount3,(10 + 12) == 22));
-        assertFalse(Login.validation(testAccount4,(10 + 12) == 12));
+        assertTrue(Login.check(testAccount1,(10 + 12) == 22));
+        assertFalse(Login.check(testAccount2,(10 + 12) == 22));
+        assertFalse(Login.check(testAccount3,(10 + 12) == 22));
+        assertFalse(Login.check(testAccount4,(10 + 12) == 12));
 
     }
 
