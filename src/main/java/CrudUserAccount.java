@@ -1,43 +1,44 @@
-public class CrudUserInternetAccount {
+public class CrudUserAccount {
 
     public static void viewAccounts(boolean withBackOption){
-        if ( User.internetAccounts.size()>0){
-            for (InternetAccount account : User.internetAccounts ) {
+        if ( User.userAccounts.size()>0){
+            for (IAccount account : User.userAccounts ) {
                 System.out.println("---------------------------------------------------------------------------------");
-                System.out.println("Account ID: " +account.getID()+ " | Username: " +account.getUsername()+ " | Password: " +account.getPassword()+ " | Domain: " +account.getDomain());
+                System.out.println(" Account ID: " +account.getID()+ " | Username: " +account.getUsername()+ " | Password: " +account.getPassword()+ " | Domain: " +account.getDomain() + " | Type: "+account.getType());
             }}else{
             System.out.println("-----No saved data found-----");
         } if(withBackOption){  Main.exitAndBackOptions();  }
     }
 
-    public static boolean create(InternetAccount account ,boolean loginStatus){
+    public static boolean create(IAccount account ,boolean loginStatus){
         if(account != null && loginStatus){
-           User.internetAccounts.add(account);
-           SaveFile.internetAccounts();
+           User.userAccounts.add(account);
+           SaveFile.userAccounts();
             return true;
         } return false;
     }
 
     public static boolean remove(int accountID, boolean loginStatus) {
-        for (Account account :  User.internetAccounts) {
+        for (IAccount account :  User.userAccounts) {
             if (account.getID()== accountID && loginStatus) {
-                User.internetAccounts.remove(account);
-                SaveFile.internetAccounts();
+                User.userAccounts.remove(account);
+                SaveFile.userAccounts();
                 return true;
             }
         } return false;
     }
 
-    public static void update(InternetAccount account,int position){
-        User.internetAccounts.set(position-1,account);
+    public static void update(IAccount account,int position){
+        User.userAccounts.set(position-1,account);
         viewAccounts(false);
-        SaveFile.internetAccounts();
+        SaveFile.userAccounts();
         System.out.println("You have changed the selected account!");
         Main.exitAndBackOptions();
     }
 
     public static boolean isValidAccountID(String accountID){
-        for (Account account :  User.internetAccounts) {
+        for (IAccount account :  User.userAccounts) {
             if (String.valueOf(account.getID()).equals(accountID) && Login.status) { return true; } } return false;
     }
+
 }

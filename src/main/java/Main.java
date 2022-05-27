@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main extends App{
+public class Main {
 
     public static Scanner scanner = new Scanner(System.in);
 
@@ -27,7 +27,8 @@ public class Main extends App{
             if(gekozenOptie.equals("1")||gekozenOptie.equals("2")||gekozenOptie.equals("3")||gekozenOptie.equals("4")||gekozenOptie.equals("5")
                     || gekozenOptie.equals("0") ){
                 switch (gekozenOptie) {
-                    case "1" :{CrudUserInternetAccount.viewAccounts(true); }
+                    case "1" :{
+                        CrudUserAccount.viewAccounts(true); }
                     case "2" :{ option2(); }
                     case "3" :{ option3(); }
                     case "4" :{ option4(); }
@@ -51,37 +52,37 @@ public static void option5(){
 }
 
 public static void option2(){
-    CrudUserInternetAccount.viewAccounts(false);
+    CrudUserAccount.viewAccounts(false);
     System.out.print("Enter the account ID: ");
     String accountID = Main.scanner.nextLine();
-    boolean isValidAccountID = CrudUserInternetAccount.isValidAccountID(accountID);
+    boolean isValidAccountID = CrudUserAccount.isValidAccountID(accountID);
     while (!isValidAccountID){
-        if (!CrudUserInternetAccount.isValidAccountID(accountID)) {
+        if (!CrudUserAccount.isValidAccountID(accountID)) {
             System.out.print("Invalid account ID please try again.\n" + "Your new choice:");
             accountID = Main.scanner.nextLine();
-            isValidAccountID = CrudUserInternetAccount.isValidAccountID(accountID);
+            isValidAccountID = CrudUserAccount.isValidAccountID(accountID);
         }
     }
-    if(CrudUserInternetAccount.remove(Integer.parseInt(accountID),Login.status)){
+    if(CrudUserAccount.remove(Integer.parseInt(accountID),Login.status)){
         System.out.println("The chosen account has been deleted");
-        CrudUserInternetAccount.viewAccounts(false);
+        CrudUserAccount.viewAccounts(false);
     }
     Main.exitAndBackOptions();
 }
     public static void option3(){
-        InternetAccount internetAccount = new InternetAccount(true);
+        IAccount account = AccountFactory.selectAccountType("select",true,"");
         System.out.println("Enter username: ");
-        internetAccount.setUsername(Main.scanner.nextLine());
+        account.setUsername(Main.scanner.nextLine());
         System.out.println("Enter password:");
-        internetAccount.setPassword(Main.scanner.nextLine());
+        account.setPassword(Main.scanner.nextLine());
         System.out.println("Enter domain:");
-        internetAccount.setDomain(Main.scanner.nextLine());
+        account.setDomain(Main.scanner.nextLine());
 
-        if(CrudUserInternetAccount.create(internetAccount, Login.status)){
+        if(CrudUserAccount.create(account, Login.status)){
             System.out.println("-------------------------------------");
             System.out.println("The data has been saved successfully");
             System.out.println("-------------------------------------");
-            CrudUserInternetAccount.viewAccounts(false);
+            CrudUserAccount.viewAccounts(false);
         }else{
             System.out.println("Failed to save data, please try again");
         }
@@ -89,13 +90,13 @@ public static void option2(){
     }
 
     public static void option4() {
-        CrudUserInternetAccount.viewAccounts(false);
+        CrudUserAccount.viewAccounts(false);
         System.out.println("Enter the ID of account you want to edit: ");
         String accountID = Main.scanner.nextLine();
         boolean isValidId = false;
         int positieWachtwoord = 0;
         while (!isValidId) {
-            for (Account account : User.internetAccounts) {
+            for (IAccount account : User.userAccounts) {
                 positieWachtwoord +=1;
                 if (String.valueOf(account.getID()).equals(accountID)) {
                     System.out.println(String.format("Selected item: Username: %s| Password: %s", account.getUsername(), account.getPassword()));
@@ -109,7 +110,9 @@ public static void option2(){
                 accountID = Main.scanner.nextLine();
             }
         }
-        InternetAccount account = new InternetAccount(false);
+
+        IAccount account = AccountFactory.selectAccountType("select",false,"");
+
         System.out.println("Enter the new username and click enter:");
         account.setUsername(Main.scanner.nextLine());
 
@@ -118,7 +121,7 @@ public static void option2(){
         System.out.println("Enter the new domain click enter: ");
         account.setDomain(Main.scanner.nextLine());
         account.setID(Integer.parseInt(accountID));
-        CrudUserInternetAccount.update(account,positieWachtwoord);
+        CrudUserAccount.update(account,positieWachtwoord);
 
     }
     public static void exitAndBackOptions() {

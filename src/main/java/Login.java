@@ -9,7 +9,7 @@ public class Login implements IObserver {
     public static Account enteredAccount;
 
     public static void showLoginForm(){
-        enteredAccount = new InternetAccount(false);
+        enteredAccount = new Account();
         System.out.println("Enter your username: ");
         enteredAccount.setUsername(Main.scanner.nextLine());
         System.out.println("Enter your password:");
@@ -25,11 +25,9 @@ public class Login implements IObserver {
     public static void startLoginProcess(){
         Login login = new Login();
         User user = App.user;
-//        user.setChanged();
         user.addObserver(login);
-//        login.update(user);
         showLoginForm();
-        Boolean isNotARobot = Main.scanner.nextLine().equals(Integer.toString(answerRobotValidation));
+        boolean isNotARobot = Main.scanner.nextLine().equals(Integer.toString(answerRobotValidation));
         boolean loginStatus = false;
         while (!loginStatus){
             if(Login.check(enteredAccount, isNotARobot) && user.canLogin){

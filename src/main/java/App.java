@@ -1,6 +1,6 @@
 public class App extends AppTemplate {
 
-    static User user = new User("Shiyar");
+    static User user = new User();
 
     @Override
     public void initialiseerAppName(String name) {
