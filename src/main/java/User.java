@@ -41,10 +41,10 @@ public class User implements Observable {
     @Override
     public void setChanged(){
         this.totalLoginAttempt++;
-        if(totalLoginAttempt>0 && totalLoginAttempt<=3){
+        if(totalLoginAttempt>0 && totalLoginAttempt<=Login.MAX_TOTAL_ATTEMPT){
             notifyObservers();
         }
-        if(totalLoginAttempt>3){ canLogin = false; }
+        if(totalLoginAttempt>Login.MAX_TOTAL_ATTEMPT){ canLogin = false; }
 
     }
 

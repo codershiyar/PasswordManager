@@ -16,5 +16,4 @@ public class App extends AppTemplate {
         System.out.println("AppVersion is: " + version);
     }
 
-
 }

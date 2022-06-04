@@ -7,7 +7,7 @@ public class Login implements IObserver {
     public static boolean status = false;
     public static int answerRobotValidation;
     public static Account enteredAccount;
-
+    public static final int MAX_TOTAL_ATTEMPT = 3;
     public static void showLoginForm(){
         enteredAccount = new Account();
         System.out.println("Enter your username: ");
@@ -56,7 +56,7 @@ public class Login implements IObserver {
     public boolean update(Observable object) {
         boolean canLogin =((User) object).canLogin;
         int totalLoginAttempt= ((User) object).totalLoginAttempt;
-        if (totalLoginAttempt<3 && canLogin) {
+        if (totalLoginAttempt<MAX_TOTAL_ATTEMPT && canLogin) {
             System.out.println ("Total Attempts: "+ totalLoginAttempt + " You can try to login again");
         }else{
             System.out.println ("You have entered more than 3 times wrong details. Your account has been banned");exit(1);

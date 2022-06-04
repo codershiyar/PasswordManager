@@ -3,6 +3,8 @@ public abstract class AppTemplate {
      public String name;
      public double version;
 
+ // Dit is template method pattern
+
     public final void buildApp(){
         initialiseerAppName(name);
         initialiseerAppVersion(version);
