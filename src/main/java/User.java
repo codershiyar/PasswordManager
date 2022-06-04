@@ -8,7 +8,7 @@ public class User implements Observable {
     public  int totalLoginAttempt;
     public  boolean canLogin;
     public static Account loginAccount = getUserLoginAccount();
-    public static ArrayList<IAccount> userAccounts = initializeUserAccounts() ;
+
     private List<IObserver> observerList;
 
     public User(){
@@ -41,10 +41,10 @@ public class User implements Observable {
     @Override
     public void setChanged(){
         this.totalLoginAttempt++;
-        if(totalLoginAttempt>0 && totalLoginAttempt<=Login.MAX_TOTAL_ATTEMPT){
+        if(totalLoginAttempt>0 && totalLoginAttempt<=TotalAttempt.getMaxAttempts()){
             notifyObservers();
         }
-        if(totalLoginAttempt>Login.MAX_TOTAL_ATTEMPT){ canLogin = false; }
+        if(totalLoginAttempt>TotalAttempt.getMaxAttempts()){ canLogin = false; }
 
     }
 
@@ -54,6 +54,7 @@ public class User implements Observable {
                 observer.update(this);
         }
     }
+
     public static Account getUserLoginAccount(){
         Account account = null;
         try {

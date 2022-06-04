@@ -8,7 +8,7 @@ public class SaveFile {
     public static void userAccounts(){
         try {
             PrintWriter fileWriter = new PrintWriter("resources/UserAccounts.txt");
-            for (IAccount account:  User.userAccounts  ){
+            for (IAccount account:  CrudUserAccount.userAccounts  ){
                 fileWriter.println(account.getType());
                 fileWriter.println(account.getID());
                 fileWriter.println(account.getUsername());

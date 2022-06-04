@@ -14,7 +14,7 @@ public class ManageUserLoginAccount {
             fileWriter.close();
             System.out.println("The login account information are updated");
         } catch (IOException e) {  System.out.println("An error occurred."); }
-        Main.exitAndBackOptions();
+        OptionsPrinter.exitAndBackOptions();
     }
 
 }

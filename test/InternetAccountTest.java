@@ -11,7 +11,7 @@ public class InternetAccountTest {
         InternetAccount account = new InternetAccount(false);
         account.setID(0);
         account.setUsername("Hans"); account.setPassword("1234"); account.setDomain("hhs.nl");
-        User.userAccounts.add(account);
+        CrudUserAccount.userAccounts.add(account);
         assertTrue(CrudUserAccount.remove(0, true));
         assertFalse(CrudUserAccount.remove(32, true));
     }
