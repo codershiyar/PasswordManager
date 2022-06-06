@@ -5,7 +5,7 @@ public class OptionsPrinter extends OptionsExecutor {
         selectMenuOption(getAValidMenuOption());
     }
 
-    public static void printMenuOptions(){
+    private static void printMenuOptions(){
         System.out.println("""
                 Menu | Select an option
                 1) View my accounts
@@ -16,7 +16,7 @@ public class OptionsPrinter extends OptionsExecutor {
                 0) Log out""");
     }
 
-    public static void selectMenuOption(int gekozenOptie){
+    private static void selectMenuOption(int gekozenOptie){
         switch (gekozenOptie) {
             case 1 :{ option1(); }
             case 2 :{ option2(); }
@@ -27,7 +27,7 @@ public class OptionsPrinter extends OptionsExecutor {
         }
     }
 
-    public static int getAValidMenuOption() {
+    private static int getAValidMenuOption() {
         int option = -1;
         while (true){
             System.out.print("Your choise:");
