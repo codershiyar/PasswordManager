@@ -47,5 +47,4 @@ public class OptionsExecutor {
         ManageUserLoginAccount.updateLoginAccount(LoginAccountCreator.getAccount());
     }
 
-
 }

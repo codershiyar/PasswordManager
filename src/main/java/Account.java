@@ -4,11 +4,6 @@ public class Account{
     private int ID;
     public static int nextID = 0;
 
-    public Account(String username, String password){
-        this.username = username;
-        this.password = password;
-    } public Account(){ }
-
     public int getID() { return ID; }
     public void setID(int ID) { this.ID = ID; }
     public String getUsername() { return username;}

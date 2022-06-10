@@ -1,4 +1,5 @@
 public class ID {
+
     public static int getValidAccountID(){
         System.out.println("Enter the ID of account you want to edit: ");
         String accountID = Main.scanner.nextLine();
